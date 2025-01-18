@@ -1,0 +1,116 @@
+/* Racine */
+.root {
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-background-color: #f5f5f5;
+}
+.search-bar-container {
+    -fx-alignment: center-left;
+    -fx-padding: 3px;
+}
+
+.search-bar {
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ccc;
+    -fx-font-size: 14px;
+    -fx-pref-width: 600px;
+}
+
+.search-bar .text-field {
+    -fx-padding: 0 10px 0 30px; /* Ajuste le padding pour donner de l'espace à l'icône */
+}
+
+.search-bar-container .image-view {
+    -fx-padding: 0 5px;
+}
+
+
+/* Conteneur principal */
+.main-container {
+    -fx-padding: 10;
+    -fx-arc-height: 500;
+}
+
+/* Titres */
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #007BFF;
+    -fx-font-family: Calibri;
+}
+
+/* Formulaire */
+.form-container {
+    -fx-background-color: white;
+    -fx-padding: 40;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+/* Tableau */
+.table-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-border-color: white;
+    -fx-border-width: 30;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.table-view {
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+
+.table-view .column-header {
+    -fx-background-color: #eeeeee;
+}
+/* style.css */
+
+.text-field {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #d3d3d3;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2196f3;
+}
+/* Style du bouton Ajouter */
+.add-button {
+    -fx-background-color: #007BFF; /* Bleu */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Style du bouton Mettre à jour */
+.update-button {
+    -fx-background-color: #4CAF50; /* Rose bébé */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Style du bouton Supprimer */
+.delete-button {
+    -fx-background-color: #DC3545; /* Rouge */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
