@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacymanagement.controllers.ClientController" stylesheets="@style.css">
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacymanagement.controllers.SalesAppareilMedicalController" stylesheets="@style.css">
 
     <!-- Sidebar -->
     <left>
@@ -160,59 +160,56 @@
             </children>
         </VBox>
     </left>
-    <!-- Contenu Principal -->
+    <!-- Main Content -->
     <center>
         <HBox spacing="20" alignment="CENTER" styleClass="main-container">
-            <!-- Tableau d'affichage -->
+            <!-- Table View -->
             <VBox spacing="15" alignment="TOP_CENTER" styleClass="table-container" prefHeight="600">
-                <Label text="Liste des Clients" styleClass="section-title" />
+                <Label text="Liste des Appareils Médicaux" styleClass="section-title" />
 
                 <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-bar-container">
-                    <!-- Icône de recherche -->
-
-
-                    <!-- TextField avec le texte de recherche -->
-                    <TextField fx:id="searchField" promptText="Rechercher un Client..." styleClass="search-bar" />
+                    <!-- Search Icon -->
                     <ImageView fx:id="searchIcon" fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
                         <image>
                             <Image url="@images/icons8_Search_52px.png" />
                         </image>
                     </ImageView>
+
+                    <!-- Search TextField -->
+                    <TextField fx:id="searchField" promptText="Rechercher un Appareil Médical..." styleClass="search-bar" />
                 </HBox>
-                <TableView fx:id="clientTable" styleClass="table-view" prefWidth="600" prefHeight="600">
+                <TableView fx:id="salesTable" styleClass="table-view" prefWidth="600" prefHeight="600">
                     <columns>
                         <TableColumn fx:id="idColumn" text="ID" />
-                        <TableColumn fx:id="nomColumn" text="Nom" />
-                        <TableColumn fx:id="prenomColumn" text="Prénom" />
-                        <TableColumn fx:id="emailColumn" text="Email" />
-                        <TableColumn fx:id="telephoneColumn" text="Téléphone" />
-                        <TableColumn fx:id="dateAdhesionColumn" text="Date d'Adhésion" />
+                        <TableColumn fx:id="clientIdColumn" text="Client ID" />
+                        <TableColumn fx:id="appareilIdColumn" text="Appareil ID" />
+                        <TableColumn fx:id="quantityColumn" text="Quantité" />
+                        <TableColumn fx:id="totalPriceColumn" text="Prix Total" />
+                        <TableColumn fx:id="dateColumn" text="Date" />
+                        <TableColumn fx:id="paymentModeColumn" text="Mode de Paiement" />
                     </columns>
                 </TableView>
 
                 <HBox spacing="10" alignment="CENTER" styleClass="action-buttons">
-                    <Button text="Supprimer" onAction="#deleteClient" styleClass="delete-button" />
-                    <Button text="Mettre à Jour" onAction="#updateClient" styleClass="update-button" />
+                    <Button text="Supprimer" onAction="#deleteSale" styleClass="delete-button" />
+                    <Button text="Mettre à Jour" onAction="#updateSale" styleClass="update-button" />
                 </HBox>
             </VBox>
 
-            <!-- Formulaire d'ajout (plus petit) -->
+            <!-- Add Form -->
             <VBox spacing="15" alignment="TOP_CENTER" styleClass="form-container" prefHeight="300">
-                <Label text="Ajouter un Client" styleClass="section-title" />
+                <Label text="Ajouter une Vente d'Appareil Médical" styleClass="section-title" />
 
                 <VBox spacing="10" styleClass="input-group">
-                    <TextField promptText="Nom" fx:id="nomField" />
-                    <TextField promptText="Prénom" fx:id="prenomField" />
-                    <TextField promptText="Email" fx:id="emailField" />
-                    <TextField promptText="Téléphone" fx:id="telephoneField" />
-                    <TextField promptText="Date d'Adhésion" fx:id="dateAdhesionField" />
+                    <TextField promptText="Client ID" fx:id="clientIdField" />
+                    <TextField promptText="Appareil ID" fx:id="appareilIdField" />
+                    <TextField promptText="Quantité" fx:id="quantityField" />
+                    <TextField promptText="Mode de Paiement" fx:id="paymentModeField" />
                 </VBox>
 
-                <Button text="Ajouter Client" onAction="#addClient" styleClass="add-button"/>
+                <Button text="Ajouter Vente" onAction="#addSale" styleClass="add-button"/>
             </VBox>
         </HBox>
-
-
     </center>
 
 </BorderPane>

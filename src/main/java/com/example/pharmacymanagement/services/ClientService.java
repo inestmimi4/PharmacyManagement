@@ -1,5 +1,6 @@
 package com.example.pharmacymanagement.services;
 
+import com.example.pharmacymanagement.models.Client;
 import com.example.pharmacymanagement.models.ClientFidele;
 import com.example.pharmacymanagement.repositories.ClientRepository;
 
@@ -34,4 +35,7 @@ public class ClientService {
     }
 
 
+    public Client getClientById(long clientId) {
+        return clientRepository.getById(clientId);
+    }
 }

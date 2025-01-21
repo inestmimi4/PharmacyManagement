@@ -145,4 +145,26 @@ public class MedicamentRepository implements GenericRepository<Medicament> {
         }
         return 0;
     }
+
+    public Medicament getById(long medicationId) throws SQLException {
+        String query = "SELECT * FROM medicaments WHERE code = ?";
+        try (Connection connection = MySqlConnection.getMySqlConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, medicationId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Medicament(
+                            resultSet.getString("nom"),
+                            resultSet.getString("genre"),
+                            resultSet.getDouble("prix"),
+                            resultSet.getLong("numeroSerie"),
+                            resultSet.getDate("dateExpiration").toLocalDate()
+                    );
+                }
+            }
+        } catch (DateExpirationDepasseException | NegativPrixMedicament e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

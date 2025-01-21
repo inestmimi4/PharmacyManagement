@@ -10,6 +10,10 @@ public class ClientFidele extends Client {
         this.dateAdhesion = dateAdhesion;
     }
 
+    public ClientFidele() {
+        super();
+    }
+
     public LocalDate getDateAdhesion() {
         return dateAdhesion;
     }

@@ -4,8 +4,10 @@ import com.example.pharmacymanagement.models.ClientFidele;
 import com.example.pharmacymanagement.services.ClientService;
 import com.example.pharmacymanagement.utils.AlertConfirmation;
 import com.example.pharmacymanagement.utils.Alertable;
+import com.example.pharmacymanagement.utils.ErrorUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +29,8 @@ public class ClientController implements AlertConfirmation, Alertable {
 
     @FXML
     private Button btnCustomers;
+    @FXML
+    private Button btnSales;
     @FXML
     private TextField nomField;
     @FXML
@@ -162,44 +166,46 @@ public class ClientController implements AlertConfirmation, Alertable {
     }
 
     @FXML
-    private void handleClientsButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pharmacymanagement/views/ClientInterface.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnCustomers.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Client Interface");
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error loading Client Interface", e);
-        }
-    }
 
+    private Button btnSalesAppareil;
     @FXML
     private Button btnmedicament;
 
     @FXML
+    private void handleClientsButtonClick() {
+        loadInterface("/com/example/pharmacymanagement/views/ClientInterface.fxml", "Client Interface", btnCustomers);
+    }
+
+    @FXML
     private void handleMedicamentButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pharmacymanagement/views/MedicamentInterface.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnmedicament.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Medicament Interface");
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error loading Medicament Interface", e);
-        }
+        loadInterface("/com/example/pharmacymanagement/views/MedicamentInterface.fxml", "Medicament Interface", btnmedicament);
     }
 
     @FXML
     private void handleHomeButtonClick() {
+        loadInterface("/com/example/pharmacymanagement/views/HomeInterface.fxml", "Home Interface", btnmedicament);
+    }
+
+    @FXML
+    public void handleSalesButtonClick(ActionEvent actionEvent) {
+        loadInterface("/com/example/pharmacymanagement/views/SalesInterface.fxml", "Sales Interface", btnSales);
+    }
+
+    @FXML
+    public void handleSalesAppareilClick(ActionEvent actionEvent) {
+        loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
+    }
+    private void loadInterface(String fxmlPath, String title, Button button) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/pharmacymanagement/views/HomeInterface.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
-            Stage stage = (Stage) btnmedicament.getScene().getWindow();
+            Stage stage = (Stage) button.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Home Interface");
+            stage.setTitle(title);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error loading Home Interface", e);
+            ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", "Error loading " + title);
+
         }
     }
+
 }

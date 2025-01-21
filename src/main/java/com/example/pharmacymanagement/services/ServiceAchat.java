@@ -6,7 +6,6 @@ import com.example.pharmacymanagement.models.Medicament;
 import com.example.pharmacymanagement.models.Vendable;
 import com.example.pharmacymanagement.mysql_connection.MySqlConnection;
 
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,19 +48,19 @@ public class ServiceAchat {
         double montantEchelonne = vendable.getTranche();
         LocalDate datePremierEchelon = LocalDate.now().plusMonths(1);
 
-        // Ajouter les enregistrements de paiement échelonné dans la base de données
-        String query = "INSERT INTO paiements_echelonnes (idClient,  montant, dateEcheance) VALUES (?, ?, ?)";
+        String query = "INSERT INTO paiements_echelonnes (idClient, montant, dateEcheance) VALUES (?, ?, ?)";
         try (Connection connection = MySqlConnection.getMySqlConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             for (int i = 0; i < 3; i++) {
                 statement.setLong(1, client.getId());
-
                 statement.setDouble(2, montantEchelonne);
                 statement.setDate(3, Date.valueOf(datePremierEchelon.plusMonths(i)));
                 statement.executeUpdate();
             }
         }
     }
+
+
     public List<Medicament> appliquerRemiseSurMedicamentsExpirant() throws SQLException {
         List<Medicament> medicaments = new ArrayList<>();
         LocalDate dateDansUnMois = LocalDate.now().plusMonths(1);

@@ -24,6 +24,10 @@ public class AppareilMedical implements Vendable {
         this.disponible = disponible;
     }
 
+    public AppareilMedical() {
+
+    }
+
 
     public void setId(long id) {
         this.id = id;
@@ -98,10 +102,12 @@ public class AppareilMedical implements Vendable {
         this.disponible = disponible;
     }
 
+
     @Override
     public double getTranche() {
         return prix / 3;
     }
+
     @Override
     public String toString() {
         return "AppareilMedical{" +

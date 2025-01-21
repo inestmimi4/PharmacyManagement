@@ -155,7 +155,7 @@ public class Medicament implements Vendable {
 
     @Override
     public double getTranche() {
-        return 0;
+        return getPrix() * 0.9;
     }
 
     public void setId(int id) {

@@ -45,4 +45,13 @@ public class MedicamentService {
     public int getMedicamentIdByName(String medicament1) {
         return medicamentRepository.getIdByNom(medicament1);
     }
+
+    public Medicament getMedicamentById(long medicationId) {
+        try {
+            return medicamentRepository.getById(medicationId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

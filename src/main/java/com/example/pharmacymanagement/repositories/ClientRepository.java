@@ -1,5 +1,6 @@
 package com.example.pharmacymanagement.repositories;
 
+import com.example.pharmacymanagement.models.Client;
 import com.example.pharmacymanagement.models.ClientFidele;
 import com.example.pharmacymanagement.mysql_connection.MySqlConnection;
 
@@ -97,5 +98,21 @@ public class ClientRepository implements GenericRepository<ClientFidele> {
         );
         client.setId(resultSet.getInt("idClient"));
         return client;
+    }
+
+    public Client getById(long clientId) {
+        String query = "SELECT * FROM clients WHERE idClient = ?";
+        try (Connection connection = MySqlConnection.getMySqlConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, clientId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToClientFidele(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error getting client by ID", e);
+        }
+        return null;
     }
 }
