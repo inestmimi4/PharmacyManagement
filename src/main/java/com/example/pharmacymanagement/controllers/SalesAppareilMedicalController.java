@@ -277,4 +277,10 @@ public class SalesAppareilMedicalController extends BaseController implements Al
         ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", message + ": " + e.getMessage());
         ErrorUtils.logError(message, e);
     }
+    @FXML
+    private Button btnappareil;
+    @FXML
+    public void handleAppareilButtonClick(ActionEvent actionEvent) {
+        loadInterface("/com/example/pharmacymanagement/views/AppareilInterface.fxml", "Sales Interface", btnappareil);
+    }
 }

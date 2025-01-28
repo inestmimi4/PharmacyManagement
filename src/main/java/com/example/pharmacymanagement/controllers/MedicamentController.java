@@ -4,6 +4,7 @@ import com.example.pharmacymanagement.models.Medicament;
 import com.example.pharmacymanagement.services.MedicamentService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -196,6 +197,11 @@ public class MedicamentController extends BaseController {
     public void handleSalesAppareilClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
-
+    @FXML
+    private Button btnappareil;
+    @FXML
+    public void handleAppareilButtonClick(ActionEvent actionEvent) {
+        loadInterface("/com/example/pharmacymanagement/views/AppareilInterface.fxml", "Sales Interface", btnappareil);
+    }
 
 }

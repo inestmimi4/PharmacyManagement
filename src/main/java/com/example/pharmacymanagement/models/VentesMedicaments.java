@@ -11,7 +11,6 @@ public class VentesMedicaments {
     private LocalDate date;
     private String paymentMode;
 
-    // Getters and Setters
     public long getId() {
         return id;
     }
