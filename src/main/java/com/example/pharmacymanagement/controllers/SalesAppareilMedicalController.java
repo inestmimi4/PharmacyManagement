@@ -10,7 +10,6 @@ import com.example.pharmacymanagement.utils.DatabaseUtils;
 import com.example.pharmacymanagement.utils.ErrorUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +21,10 @@ import java.time.LocalDate;
 
 public class SalesAppareilMedicalController extends BaseController implements Alertable {
 
+    @FXML
+    private Button btnSalesAppareil;
+    @FXML
+    private Button btnappareil;
     @FXML
     private TextField clientIdField;
     @FXML
@@ -232,9 +235,7 @@ public class SalesAppareilMedicalController extends BaseController implements Al
     }
 
 
-    @FXML
 
-    private Button btnSalesAppareil;
 
 
     @FXML
@@ -253,12 +254,12 @@ public class SalesAppareilMedicalController extends BaseController implements Al
     }
 
     @FXML
-    public void handleSalesButtonClick(ActionEvent actionEvent) {
+    public void handleSalesButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesInterface.fxml", "Sales Interface", btnSales);
     }
 
     @FXML
-    public void handleSalesAppareilClick(ActionEvent actionEvent) {
+    public void handleSalesAppareilClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
     private void showError(String message) {
@@ -277,10 +278,9 @@ public class SalesAppareilMedicalController extends BaseController implements Al
         ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", message + ": " + e.getMessage());
         ErrorUtils.logError(message, e);
     }
+
     @FXML
-    private Button btnappareil;
-    @FXML
-    public void handleAppareilButtonClick(ActionEvent actionEvent) {
+    public void handleAppareilButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/AppareilInterface.fxml", "Sales Interface", btnappareil);
     }
 }

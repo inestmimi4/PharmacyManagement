@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
 import java.sql.SQLException;
@@ -20,8 +19,6 @@ public class AppareilMedicalController extends BaseController {
 
     @FXML
     private TextField searchField;
-    @FXML
-    private ImageView searchIcon;
     @FXML
     private TableView<AppareilMedical> appareilTable;
     @FXML
@@ -58,6 +55,12 @@ public class AppareilMedicalController extends BaseController {
     private TextField dateAchatField;
     @FXML
     private TextField disponibleField;
+    @FXML
+    private Button btnmedicament;
+    @FXML
+    private Button btnSalesAppareil;
+    @FXML
+    private Button btnappareil;
 
     private final AppareilMedicalService appareilMedicalService = new AppareilMedicalService();
     private final ObservableList<AppareilMedical> appareilList = FXCollections.observableArrayList();
@@ -153,7 +156,7 @@ public class AppareilMedicalController extends BaseController {
             if (selectedAppareil != null) {
                 boolean confirmed = showConfirmationAlert("Confirmation", "Confirm Deletion", "Are you sure you want to delete this appareil?");
                 if (confirmed) {
-                    appareilMedicalService.deleteAppareilMedical((int) selectedAppareil.getId());
+                    appareilMedicalService.deleteAppareilMedical(selectedAppareil.getId());
                     loadAppareils();
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Appareil deleted successfully!");
                 }
@@ -186,11 +189,6 @@ public class AppareilMedicalController extends BaseController {
     }
 
     @FXML
-    private Button btnmedicament;
-    @FXML
-    private Button btnSalesAppareil;
-
-    @FXML
     private void handleClientsButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/ClientInterface.fxml", "Client Interface", btnmedicament);
     }
@@ -214,8 +212,7 @@ public class AppareilMedicalController extends BaseController {
     public void handleSalesAppareilClick(ActionEvent actionEvent) {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
-    @FXML
-    private Button btnappareil;
+
     @FXML
     public void handleAppareilButtonClick(ActionEvent actionEvent) {
         loadInterface("/com/example/pharmacymanagement/views/AppareilInterface.fxml", "Sales Interface", btnappareil);
