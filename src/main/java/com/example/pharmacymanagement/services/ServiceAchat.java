@@ -14,14 +14,25 @@ import java.util.List;
 public class ServiceAchat {
 
     public void acheterVendable(ClientFidele client, Vendable vendable, int quantite, String modePaiement) throws SQLException {
-        double prixTotal = vendable.getPrix() * quantite;
+        double prixTotal ;
+
+
         LocalDate dateAchat = LocalDate.now();
-
         String specificVenteQuery;
-
-        if (vendable instanceof Medicament) {
+        if (vendable instanceof Medicament medicament) {
+            String typeMedicament = medicament.getTypeMedicament();
+            System.out.println("Type medicament: " + typeMedicament);
+            if (typeMedicament != null && typeMedicament.equalsIgnoreCase("chimique")) {
+                prixTotal = vendable.getPrix() * 0.9*quantite;
+            }
+            else {
+                prixTotal = vendable.getPrix() * 0.8*quantite;
+            }
+            System.out.println("Prix total: " + prixTotal);
             specificVenteQuery = "INSERT INTO ventes_medicaments (idClient, idMedicament, quantite, prixTotal, dateVente, modePaiement) VALUES (?, ?, ?, ?, ?, ?)";
         } else if (vendable instanceof AppareilMedical) {
+            prixTotal=vendable.getTranche()*quantite;
+            System.out.println("Prix total: " + prixTotal);
             specificVenteQuery = "INSERT INTO ventes_appareils (idClient, idAppareil, quantite, prixTotal, dateVente, modePaiement) VALUES (?, ?, ?, ?, ?, ?)";
         } else {
             throw new IllegalArgumentException("Unknown vendable type");
@@ -45,16 +56,20 @@ public class ServiceAchat {
     }
 
     private void gererPaiementEchelonne(ClientFidele client, Vendable vendable, double prixTotal) throws SQLException {
-        double montantEchelonne = vendable.getTranche();
+        double montantEchelon = prixTotal / 3;
+        System.out.println("Montant échelon: " + montantEchelon);
+
         LocalDate datePremierEchelon = LocalDate.now().plusMonths(1);
+        System.out.println("Date premier échelon: " + datePremierEchelon);
 
         String query = "INSERT INTO paiements_echelonnes (idClient, montant, dateEcheance) VALUES (?, ?, ?)";
         try (Connection connection = MySqlConnection.getMySqlConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             for (int i = 0; i < 3; i++) {
                 statement.setLong(1, client.getId());
-                statement.setDouble(2, montantEchelonne);
+                statement.setDouble(2, montantEchelon);
                 statement.setDate(3, Date.valueOf(datePremierEchelon.plusMonths(i)));
+                System.out.println("Executing query: " + statement);
                 statement.executeUpdate();
             }
         }
@@ -83,6 +98,7 @@ public class ServiceAchat {
                 medicament.setPrix(resultSet.getDouble("prix"));
                 medicament.setNumeroSerie(resultSet.getLong("numeroSerie"));
                 medicament.setDateExpiration(resultSet.getDate("dateExpiration").toLocalDate());
+                medicament.setTypeMedicament(resultSet.getString("type_medicament"));
 
                 medicaments.add(medicament);
 

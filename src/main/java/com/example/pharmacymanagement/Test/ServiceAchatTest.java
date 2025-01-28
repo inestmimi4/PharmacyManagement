@@ -53,10 +53,10 @@ public class ServiceAchatTest {
         return appareilMedical;
     }
 
-    private Medicament createOrRetrieveMedicament(String nom, String genre, double prix, long numeroSerie, LocalDate dateExpiration) throws DateExpirationDepasseException, NegativPrixMedicament {
-        Medicament medicament = new Medicament(nom, genre, prix, numeroSerie, dateExpiration);
+    private Medicament createOrRetrieveMedicament(String nom, String genre, double prix, long numeroSerie, LocalDate dateExpiration,String typeMedicament) throws DateExpirationDepasseException, NegativPrixMedicament {
+        Medicament medicament = new Medicament(nom, genre, prix, numeroSerie, dateExpiration,typeMedicament);
         try {
-            medicamentService.addMedicament(medicament.getNom(), medicament.getGenre(), medicament.getPrix(), medicament.getNumeroSerie(), medicament.getDateExpiration());
+            medicamentService.addMedicament(medicament.getNom(), medicament.getGenre(), medicament.getPrix(), medicament.getNumeroSerie(), medicament.getDateExpiration(), "chimique");
             medicament.setId(medicamentService.getMedicamentIdByName(nom));
         } catch (Exception e) {
             medicament.setId(medicamentService.getMedicamentIdByName(nom));
@@ -81,9 +81,9 @@ public class ServiceAchatTest {
     public void testAddClientAndPurchaseMedicament() {
         try {
             ClientFidele newClient = createOrRetrieveClient("Jane", "Smith", "jane.smith@example.com", "0987654321", LocalDate.of(2021, 5, 15));
-            Medicament newMedicament = createOrRetrieveMedicament("Medicament1", "Category1", 50.0, 12345678902L, LocalDate.now().plusMonths(6));
+            Medicament newMedicament = createOrRetrieveMedicament("Medicament1", "Category1", 50.0, 12345678902L, LocalDate.now().plusMonths(6),"chimique");
 
-            serviceAchat.acheterVendable(newClient, newMedicament, 2, "Comptant");
+            serviceAchat.acheterVendable(newClient, newMedicament, 2, "Échelonné");
             System.out.println("New medicament purchased successfully with Comptant payment method!");
         } catch (Exception e) {
             fail("Exception should not have been thrown: " + e.getMessage());
@@ -93,7 +93,7 @@ public class ServiceAchatTest {
     @Test
     public void testApplyDiscountOnExpiringMedicaments() {
         try {
-            Medicament expiringMedicament = createOrRetrieveMedicament("ExpiringMedicament", "Category1", 100.0, 20000L, LocalDate.now().plusMonths(1));
+            Medicament expiringMedicament = createOrRetrieveMedicament("ExpiringMedicament", "Category1", 100.0, 20000L, LocalDate.now().plusMonths(1),"chimique");
 
             List<Medicament> medicaments = serviceAchat.appliquerRemiseSurMedicamentsExpirant();
             assertFalse(medicaments.isEmpty());

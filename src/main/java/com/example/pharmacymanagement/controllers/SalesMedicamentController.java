@@ -4,7 +4,6 @@ import com.example.pharmacymanagement.models.ClientFidele;
 import com.example.pharmacymanagement.models.Medicament;
 import com.example.pharmacymanagement.models.VentesMedicaments;
 import com.example.pharmacymanagement.mysql_connection.MySqlConnection;
-import com.example.pharmacymanagement.services.MedicamentService;
 import com.example.pharmacymanagement.services.ServiceAchat;
 import com.example.pharmacymanagement.utils.Alertable;
 import com.example.pharmacymanagement.utils.DatabaseUtils;
@@ -13,20 +12,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class SalesMedicamentController implements Alertable {
+
+public class SalesMedicamentController extends BaseController implements Alertable {
 
     @FXML
     private TextField clientIdField;
@@ -63,7 +57,6 @@ public class SalesMedicamentController implements Alertable {
     private Button btnmedicament;
 
     private final ServiceAchat serviceAchat = new ServiceAchat();
-    private final MedicamentService medicamentService = new MedicamentService();
     private final ObservableList<VentesMedicaments> salesList = FXCollections.observableArrayList();
 
     @FXML
@@ -141,6 +134,7 @@ public class SalesMedicamentController implements Alertable {
                 medicament.setPrix(resultSet.getDouble("prix"));
                 medicament.setNumeroSerie(resultSet.getLong("numeroSerie"));
                 medicament.setDateExpiration(resultSet.getDate("dateExpiration").toLocalDate());
+                medicament.setTypeMedicament(resultSet.getString("type_medicament"));
                 return medicament;
             }
         }
@@ -234,6 +228,7 @@ public class SalesMedicamentController implements Alertable {
             ErrorUtils.showAlert(Alert.AlertType.WARNING, "Warning", "No sale selected.");
         }
     }
+
     @FXML
 
     private Button btnSalesAppareil;
@@ -263,15 +258,4 @@ public class SalesMedicamentController implements Alertable {
     public void handleSalesAppareilClick(ActionEvent actionEvent) {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
-    private void loadInterface(String fxmlPath, String title, Button button) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-            Stage stage = (Stage) button.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
-        } catch (Exception e) {
-            ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", "Error loading " + title);
-
-        }
-    }}
+}

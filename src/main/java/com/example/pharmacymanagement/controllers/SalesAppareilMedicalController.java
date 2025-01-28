@@ -12,19 +12,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 import java.sql.*;
 import java.time.LocalDate;
 
 
-public class SalesAppareilMedicalController implements Alertable {
+public class SalesAppareilMedicalController extends BaseController implements Alertable {
 
     @FXML
     private TextField clientIdField;
@@ -265,19 +261,6 @@ public class SalesAppareilMedicalController implements Alertable {
     public void handleSalesAppareilClick(ActionEvent actionEvent) {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
-    private void loadInterface(String fxmlPath, String title, Button button) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-            Stage stage = (Stage) button.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
-        } catch (Exception e) {
-            ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", "Error loading " + title);
-
-        }
-    }
-
     private void showError(String message) {
         ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", message);
     }

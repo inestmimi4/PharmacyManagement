@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AppareilMedicalService {
 
-    private AppareilMedicalRepository appareilMedicalRepository = new AppareilMedicalRepository();
+    private final AppareilMedicalRepository appareilMedicalRepository = new AppareilMedicalRepository();
 
     public void addAppareilMedical(String nom, String marque, double prix, String numeroSerie, LocalDate dateFabrication, int garantieEnMois, LocalDate dateAchat, boolean disponible) throws SQLException {
         AppareilMedical appareil = new AppareilMedical(nom, marque, prix, numeroSerie, dateFabrication, garantieEnMois, dateAchat, disponible);
@@ -28,16 +28,8 @@ public class AppareilMedicalService {
         appareilMedicalRepository.delete(id);
     }
 
-
-    public long getAppareilMedicalIdByName(String appareil1) {
-        return appareilMedicalRepository.getIdByNom(appareil1);
-    }
-
     public long getAppareilMedicalIdByNumeroSerie(String number) {
         return appareilMedicalRepository.getIdByNumeroSerie(number);
     }
 
-    public void addVendable(AppareilMedical appareilMedical) throws SQLException {
-        appareilMedicalRepository.add(appareilMedical);
-    }
 }

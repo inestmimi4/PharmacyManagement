@@ -105,7 +105,7 @@ public class AppareilMedical implements Vendable {
 
     @Override
     public double getTranche() {
-        return prix / 3;
+        return prix *0.9;
     }
 
     @Override

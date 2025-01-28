@@ -9,11 +9,11 @@ public class medicamentServicetest {
         try {
             MedicamentService medicamentService = new MedicamentService();
 
-            medicamentService.addMedicament("Med1", "Genre1", 100.0, 123456789, LocalDate.now().plusMonths(1));
+            medicamentService.addMedicament("Med1", "Genre1", 100.0, 123456789, LocalDate.now().plusMonths(1), "chimique");
             System.out.println("Medicament added successfully!");
             System.out.println("List of medicaments:");
             medicamentService.getMedicaments().forEach(System.out::println);
-            medicamentService.updateMedicament(1, "Med1 Updated", "Genre1", 150.0, 123456789, LocalDate.now().plusMonths(2));
+            medicamentService.updateMedicament(1, "Med1 Updated", "Genre1", 150.0, 123456789, LocalDate.now().plusMonths(2),"chimique");
             System.out.println("Medicament updated successfully!");
             System.out.println("List of medicaments after update:");
             medicamentService.getMedicaments().forEach(System.out::println);

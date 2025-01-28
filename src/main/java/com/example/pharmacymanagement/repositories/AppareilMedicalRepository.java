@@ -59,10 +59,6 @@ public class AppareilMedicalRepository implements GenericRepository<AppareilMedi
         }
     }
 
-    public long getIdByNom(String nom) {
-        return getIdByField("nom", nom);
-    }
-
     public long getIdByNumeroSerie(String numeroSerie) {
         return getIdByField("numeroSerie", numeroSerie);
     }

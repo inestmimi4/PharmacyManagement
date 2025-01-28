@@ -37,6 +37,8 @@ public class Medicament implements Vendable {
         n++;
         this.code = n;
     }
+
+
     public String getTypeMedicament() {
         return typeMedicament;
     }
@@ -155,7 +157,13 @@ public class Medicament implements Vendable {
 
     @Override
     public double getTranche() {
-        return getPrix() * 0.9;
+        if ("homeopathique".equalsIgnoreCase(typeMedicament)) {
+            return getPrix() * 0.8;
+        } else if ("chimique".equalsIgnoreCase(typeMedicament)) {
+            return getPrix() * 0.9;
+        } else {
+            return getPrix();
+        }
     }
 
     public void setId(int id) {

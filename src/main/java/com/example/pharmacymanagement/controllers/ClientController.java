@@ -2,30 +2,19 @@ package com.example.pharmacymanagement.controllers;
 
 import com.example.pharmacymanagement.models.ClientFidele;
 import com.example.pharmacymanagement.services.ClientService;
-import com.example.pharmacymanagement.utils.AlertConfirmation;
-import com.example.pharmacymanagement.utils.Alertable;
-import com.example.pharmacymanagement.utils.ErrorUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class ClientController implements AlertConfirmation, Alertable {
+public class ClientController extends BaseController {
 
-    private static final Logger logger = Logger.getLogger(ClientController.class.getName());
+
 
     @FXML
     private Button btnCustomers;
@@ -58,8 +47,8 @@ public class ClientController implements AlertConfirmation, Alertable {
     @FXML
     private TableColumn<ClientFidele, LocalDate> dateAdhesionColumn;
 
-    private ClientService clientService = new ClientService();
-    private ObservableList<ClientFidele> clientList = FXCollections.observableArrayList();
+    private final ClientService clientService = new ClientService();
+    private final ObservableList<ClientFidele> clientList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -187,25 +176,14 @@ public class ClientController implements AlertConfirmation, Alertable {
     }
 
     @FXML
-    public void handleSalesButtonClick(ActionEvent actionEvent) {
+    public void handleSalesButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesInterface.fxml", "Sales Interface", btnSales);
     }
 
     @FXML
-    public void handleSalesAppareilClick(ActionEvent actionEvent) {
+    public void handleSalesAppareilClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
-    private void loadInterface(String fxmlPath, String title, Button button) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-            Stage stage = (Stage) button.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
-        } catch (Exception e) {
-            ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", "Error loading " + title);
 
-        }
-    }
 
 }

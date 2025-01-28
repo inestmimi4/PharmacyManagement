@@ -9,11 +9,11 @@ import java.util.List;
 
 public class MedicamentService {
 
-    private MedicamentRepository medicamentRepository = new MedicamentRepository();
+    private final MedicamentRepository medicamentRepository = new MedicamentRepository();
 
 
-    public void addMedicament(String nom, String genre, double prix, long numeroSerie, LocalDate dateExpiration) throws Exception {
-        Medicament medicament = new Medicament(nom, genre, prix, numeroSerie, dateExpiration);
+    public void addMedicament(String nom, String genre, double prix, long numeroSerie, LocalDate dateExpiration,String typeMedicament) throws Exception {
+        Medicament medicament = new Medicament(nom, genre, prix, numeroSerie, dateExpiration,typeMedicament);
         medicamentRepository.add(medicament);
     }
 
@@ -21,8 +21,8 @@ public class MedicamentService {
         return medicamentRepository.getAll();
     }
 
-    public void updateMedicament(int id, String nom, String genre, double prix, long numeroSerie, LocalDate dateExpiration) throws Exception {
-        Medicament medicament = new Medicament(nom, genre, prix, numeroSerie, dateExpiration);
+    public void updateMedicament(int id, String nom, String genre, double prix, long numeroSerie, LocalDate dateExpiration,String typeMedicament) throws Exception {
+        Medicament medicament = new Medicament(nom, genre, prix, numeroSerie, dateExpiration,typeMedicament);
         medicament.setId(id);
         medicamentRepository.update(medicament);
     }
@@ -46,12 +46,5 @@ public class MedicamentService {
         return medicamentRepository.getIdByNom(medicament1);
     }
 
-    public Medicament getMedicamentById(long medicationId) {
-        try {
-            return medicamentRepository.getById(medicationId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 }

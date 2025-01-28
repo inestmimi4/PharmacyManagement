@@ -12,7 +12,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacymanagement.controllers.SalesMedicamentController" stylesheets="@style.css">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacymanagement.controllers.AppareilMedicalController" stylesheets="@style.css">
 
     <!-- Sidebar -->
     <left>
@@ -161,52 +161,57 @@
         </VBox>
     </left>
 
-    <!-- Contenu Principal -->
+    <!-- Main Content -->
     <center>
         <HBox spacing="20" alignment="CENTER" styleClass="main-container">
-            <!-- Tableau d'affichage -->
+            <!-- Table View -->
             <VBox spacing="15" alignment="TOP_CENTER" styleClass="table-container" prefHeight="600">
-                <Label text="Liste des Ventes de Médicaments" styleClass="section-title" />
+                <Label text="Liste des Appareils Médicaux" styleClass="section-title" />
 
                 <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-bar-container">
-                    <!-- Icône de recherche -->
-                    <TextField fx:id="searchField" promptText="Rechercher une Vente..." styleClass="search-bar" />
+                    <TextField fx:id="searchField" promptText="Rechercher un Appareil..." styleClass="search-bar" />
                     <ImageView fx:id="searchIcon" fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
                         <image>
                             <Image url="@images/icons8_Search_52px.png" />
                         </image>
                     </ImageView>
                 </HBox>
-                <TableView fx:id="salesTable" styleClass="table-view" prefWidth="600" prefHeight="600">
+                <TableView fx:id="appareilTable" styleClass="table-view" prefWidth="600" prefHeight="600">
                     <columns>
                         <TableColumn fx:id="idColumn" text="ID" />
-                        <TableColumn fx:id="clientIdColumn" text="Client ID" />
-                        <TableColumn fx:id="medicationIdColumn" text="Medication ID" />
-                        <TableColumn fx:id="quantityColumn" text="Quantity" />
-                        <TableColumn fx:id="totalPriceColumn" text="Total Price" />
-                        <TableColumn fx:id="dateColumn" text="Date" />
-                        <TableColumn fx:id="paymentModeColumn" text="Payment Mode" />
+                        <TableColumn fx:id="nomColumn" text="Nom" />
+                        <TableColumn fx:id="marqueColumn" text="Marque" />
+                        <TableColumn fx:id="prixColumn" text="Prix" />
+                        <TableColumn fx:id="numeroSerieColumn" text="Numéro de Série" />
+                        <TableColumn fx:id="dateFabricationColumn" text="Date de Fabrication" />
+                        <TableColumn fx:id="garantieColumn" text="Garantie (mois)" />
+                        <TableColumn fx:id="dateAchatColumn" text="Date d'Achat" />
+                        <TableColumn fx:id="disponibleColumn" text="Disponible" />
                     </columns>
                 </TableView>
 
                 <HBox spacing="10" alignment="CENTER" styleClass="action-buttons">
-                    <Button text="Supprimer" onAction="#deleteSale" styleClass="delete-button" />
-                    <Button text="Mettre à Jour" onAction="#updateSale" styleClass="update-button" />
+                    <Button text="Supprimer" onAction="#deleteAppareil" styleClass="delete-button" />
+                    <Button text="Mettre à Jour" onAction="#updateAppareil" styleClass="update-button" />
                 </HBox>
             </VBox>
 
-            <!-- Formulaire d'ajout (plus petit) -->
+            <!-- Form for adding new AppareilMedical -->
             <VBox spacing="15" alignment="TOP_CENTER" styleClass="form-container" prefHeight="300">
-                <Label text="Ajouter une Vente" styleClass="section-title" />
+                <Label text="Ajouter un Appareil Médical" styleClass="section-title" />
 
                 <VBox spacing="10" styleClass="input-group">
-                    <TextField promptText="Client ID" fx:id="clientIdField" />
-                    <TextField promptText="Medication ID" fx:id="medicationIdField" />
-                    <TextField promptText="Quantity" fx:id="quantityField" />
-                    <TextField promptText="Payment Mode" fx:id="paymentModeField" />
+                    <TextField promptText="Nom" fx:id="nomField" />
+                    <TextField promptText="Marque" fx:id="marqueField" />
+                    <TextField promptText="Prix" fx:id="prixField" />
+                    <TextField promptText="Numéro de Série" fx:id="numeroSerieField" />
+                    <TextField promptText="Date de Fabrication" fx:id="dateFabricationField" />
+                    <TextField promptText="Garantie (mois)" fx:id="garantieField" />
+                    <TextField promptText="Date d'Achat" fx:id="dateAchatField" />
+                    <TextField promptText="Disponible" fx:id="disponibleField" />
                 </VBox>
 
-                <Button text="Ajouter Vente" onAction="#addSale" styleClass="add-button"/>
+                <Button text="Ajouter Appareil" onAction="#addAppareil" styleClass="add-button"/>
             </VBox>
         </HBox>
     </center>

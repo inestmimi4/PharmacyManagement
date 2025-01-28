@@ -2,30 +2,18 @@ package com.example.pharmacymanagement.controllers;
 
 import com.example.pharmacymanagement.models.Medicament;
 import com.example.pharmacymanagement.services.MedicamentService;
-import com.example.pharmacymanagement.utils.AlertConfirmation;
-import com.example.pharmacymanagement.utils.Alertable;
-import com.example.pharmacymanagement.utils.ErrorUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class MedicamentController implements Alertable, AlertConfirmation {
+public class MedicamentController extends BaseController {
 
-    private static final Logger logger = Logger.getLogger(MedicamentController.class.getName());
 
     @FXML
     private Button btnCustomers;
@@ -37,6 +25,9 @@ public class MedicamentController implements Alertable, AlertConfirmation {
     private TextField genreField;
     @FXML
     private TextField prixField;
+    @FXML
+    private TextField typeMedicamentField;
+
     @FXML
     private TextField numeroSerieField;
     @FXML
@@ -57,6 +48,8 @@ public class MedicamentController implements Alertable, AlertConfirmation {
     private TableColumn<Medicament, Long> numeroSerieColumn;
     @FXML
     private TableColumn<Medicament, LocalDate> dateExpirationColumn;
+    @FXML
+    private TableColumn<Medicament, String> typeMedicamentColumn;
 
     private final MedicamentService medicamentService = new MedicamentService();
     private final ObservableList<Medicament> medicamentList = FXCollections.observableArrayList();
@@ -69,6 +62,7 @@ public class MedicamentController implements Alertable, AlertConfirmation {
         prixColumn.setCellValueFactory(new PropertyValueFactory<>("prix"));
         numeroSerieColumn.setCellValueFactory(new PropertyValueFactory<>("numeroSerie"));
         dateExpirationColumn.setCellValueFactory(new PropertyValueFactory<>("dateExpiration"));
+        typeMedicamentColumn.setCellValueFactory(new PropertyValueFactory<>("typeMedicament"));
         medicamentTable.setItems(medicamentList);
         loadMedicaments();
 
@@ -83,6 +77,7 @@ public class MedicamentController implements Alertable, AlertConfirmation {
             String prixText = prixField.getText();
             String numeroSerieText = numeroSerieField.getText();
             String dateExpirationText = dateExpirationField.getText();
+            String typeMedicament = typeMedicamentField.getText();
 
             if (nom.isEmpty() || genre.isEmpty() || prixText.isEmpty() || numeroSerieText.isEmpty() || dateExpirationText.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
@@ -102,7 +97,7 @@ public class MedicamentController implements Alertable, AlertConfirmation {
                 return;
             }
 
-            medicamentService.addMedicament(nom, genre, prix, numeroSerie, dateExpiration);
+            medicamentService.addMedicament(nom, genre, prix, numeroSerie, dateExpiration, typeMedicament);
             loadMedicaments();
             showAlert(Alert.AlertType.INFORMATION, "Success", "Medicament added successfully!");
         } catch (Exception e) {
@@ -120,8 +115,9 @@ public class MedicamentController implements Alertable, AlertConfirmation {
                 double prix = Double.parseDouble(prixField.getText());
                 long numeroSerie = Long.parseLong(numeroSerieField.getText());
                 LocalDate dateExpiration = LocalDate.parse(dateExpirationField.getText());
+                String typeMedicament = typeMedicamentField.getText();
 
-                medicamentService.updateMedicament((int) selectedMedicament.getCode(), nom, genre, prix, numeroSerie, dateExpiration);
+                medicamentService.updateMedicament((int) selectedMedicament.getCode(), nom, genre, prix, numeroSerie, dateExpiration, typeMedicament);
                 loadMedicaments();
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Medicament updated successfully!");
             }
@@ -192,25 +188,14 @@ public class MedicamentController implements Alertable, AlertConfirmation {
     }
 
     @FXML
-    public void handleSalesButtonClick(ActionEvent actionEvent) {
+    public void handleSalesButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesInterface.fxml", "Sales Interface", btnSales);
     }
 
     @FXML
-    public void handleSalesAppareilClick(ActionEvent actionEvent) {
+    public void handleSalesAppareilClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
 
-    private void loadInterface(String fxmlPath, String title, Button button) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-            Stage stage = (Stage) button.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle(title);
-        } catch (Exception e) {
-            ErrorUtils.showAlert(Alert.AlertType.ERROR, "Error", "Error loading " + title);
-            logger.log(Level.SEVERE, "Error loading " + title, e);
-        }
-    }
+
 }

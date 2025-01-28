@@ -37,7 +37,7 @@ public class TestServiceAchat {
             System.out.println("New appareil medical purchased successfully with Échelonné payment method!");
 
             Medicament expiringMedicament = new Medicament("ExpiringMedicament", "Category1", 100.0, 20000L, LocalDate.now().plusMonths(1));
-            medicamentService.addMedicament(expiringMedicament.getNom(), expiringMedicament.getGenre(), expiringMedicament.getPrix(), expiringMedicament.getNumeroSerie(), expiringMedicament.getDateExpiration());
+            medicamentService.addMedicament(expiringMedicament.getNom(), expiringMedicament.getGenre(), expiringMedicament.getPrix(), expiringMedicament.getNumeroSerie(), expiringMedicament.getDateExpiration(), "chimique");
             expiringMedicament.setId(medicamentService.getMedicamentIdByName("ExpiringMedicament"));
 
             List<Medicament> medicaments = serviceAchat.appliquerRemiseSurMedicamentsExpirant();
