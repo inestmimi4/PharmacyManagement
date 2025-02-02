@@ -16,10 +16,8 @@ public class HomeController {
 
     @FXML
     private Button btnMedicament;
-
     @FXML
     private Button btnClient;
-
     @FXML
     private void handleMedicamentButtonClick() {
         try {
@@ -32,7 +30,6 @@ public class HomeController {
             logger.log(Level.SEVERE, "Error loading Medicament Interface", e);
         }
     }
-
     @FXML
     private void handleClientButtonClick() {
         try {

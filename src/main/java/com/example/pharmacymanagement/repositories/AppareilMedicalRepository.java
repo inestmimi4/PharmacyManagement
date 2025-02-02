@@ -60,11 +60,11 @@ public class AppareilMedicalRepository implements GenericRepository<AppareilMedi
     }
 
     public long getIdByNumeroSerie(String numeroSerie) {
-        return getIdByField("numeroSerie", numeroSerie);
+        return getIdByField(numeroSerie);
     }
 
-    private long getIdByField(String fieldName, String value) {
-        String query = "SELECT idAppareil FROM appareils_medicals WHERE " + fieldName + " = ?";
+    private long getIdByField(String value) {
+        String query = "SELECT idAppareil FROM appareils_medicals WHERE " + "numeroSerie" + " = ?";
         try (Connection connection = MySqlConnection.getMySqlConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, value);
@@ -73,7 +73,7 @@ public class AppareilMedicalRepository implements GenericRepository<AppareilMedi
                 return resultSet.getLong("idAppareil");
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error getting ID by " + fieldName, e);
+            logger.log(Level.SEVERE, "Error getting ID by " + "numeroSerie", e);
         }
         return 0;
     }

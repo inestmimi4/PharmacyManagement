@@ -1,6 +1,5 @@
 package com.example.pharmacymanagement.services;
 
-import com.example.pharmacymanagement.models.Client;
 import com.example.pharmacymanagement.models.ClientFidele;
 import com.example.pharmacymanagement.repositories.ClientRepository;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class ClientService {
 
-    private ClientRepository clientRepository = new ClientRepository();
+    private final ClientRepository clientRepository = new ClientRepository();
 
     public void addClient(String nom, String prenom, String email, String telephone, LocalDate dateAdhesion) throws Exception {
         ClientFidele client = new ClientFidele(nom, prenom, email, telephone, dateAdhesion);
@@ -34,8 +33,4 @@ public class ClientService {
         return clientRepository.getIdByEmail(mail);
     }
 
-
-    public Client getClientById(long clientId) {
-        return clientRepository.getById(clientId);
-    }
 }

@@ -61,11 +61,11 @@ public class ClientRepository implements GenericRepository<ClientFidele> {
     }
 
     public int getIdByEmail(String email) {
-        return getIdByField("email", email);
+        return getIdByField(email);
     }
 
-    private int getIdByField(String fieldName, String value) {
-        String query = "SELECT idClient FROM clients WHERE " + fieldName + " = ?";
+    private int getIdByField(String value) {
+        String query = "SELECT idClient FROM clients WHERE " + "email" + " = ?";
         try (Connection connection = MySqlConnection.getMySqlConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, value);
@@ -75,7 +75,7 @@ public class ClientRepository implements GenericRepository<ClientFidele> {
                 }
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error getting ID by " + fieldName, e);
+            logger.log(Level.SEVERE, "Error getting ID by " + "email", e);
         }
         return -1;
     }

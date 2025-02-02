@@ -23,7 +23,7 @@ public class TestAppareilMedicalService {
                 System.out.println("Delete all appareils medicals");
                 appareilMedicalService.getAppareilsMedicals().forEach(appareil -> {
                     try {
-                        appareilMedicalService.deleteAppareilMedical((int) appareil.getId());
+                        appareilMedicalService.deleteAppareilMedical(appareil.getId());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

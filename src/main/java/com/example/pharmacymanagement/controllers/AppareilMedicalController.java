@@ -204,17 +204,17 @@ public class AppareilMedicalController extends BaseController {
     }
 
     @FXML
-    public void handleSalesButtonClick(ActionEvent actionEvent) {
+    public void handleSalesButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesInterface.fxml", "Sales Interface", btnSalesAppareil);
     }
 
     @FXML
-    public void handleSalesAppareilClick(ActionEvent actionEvent) {
+    public void handleSalesAppareilClick() {
         loadInterface("/com/example/pharmacymanagement/views/SalesAppareilMedical.fxml", "Sales Interface", btnSalesAppareil);
     }
 
     @FXML
-    public void handleAppareilButtonClick(ActionEvent actionEvent) {
+    public void handleAppareilButtonClick() {
         loadInterface("/com/example/pharmacymanagement/views/AppareilInterface.fxml", "Sales Interface", btnappareil);
     }
 }

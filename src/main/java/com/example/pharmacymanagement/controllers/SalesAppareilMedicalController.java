@@ -206,7 +206,7 @@ public class SalesAppareilMedicalController extends BaseController implements Al
                 handleException("Error deleting sale", e);
             }
         } else {
-            showWarning("No sale selected.");
+            showWarning();
         }
     }
 
@@ -230,7 +230,7 @@ public class SalesAppareilMedicalController extends BaseController implements Al
                 handleException("Error updating sale", e);
             }
         } else {
-            showWarning("No sale selected.");
+            showWarning();
         }
     }
 
@@ -270,8 +270,8 @@ public class SalesAppareilMedicalController extends BaseController implements Al
         ErrorUtils.showAlert(Alert.AlertType.INFORMATION, "Success", message);
     }
 
-    private void showWarning(String message) {
-        ErrorUtils.showAlert(Alert.AlertType.WARNING, "Warning", message);
+    private void showWarning() {
+        ErrorUtils.showAlert(Alert.AlertType.WARNING, "Warning", "No sale selected.");
     }
 
     private void handleException(String message, Exception e) {

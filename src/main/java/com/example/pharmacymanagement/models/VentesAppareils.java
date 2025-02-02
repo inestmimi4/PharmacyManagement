@@ -14,15 +14,6 @@ public class VentesAppareils {
     public VentesAppareils() {
     }
 
-    public VentesAppareils(long clientId, long appareilId, int quantity, double totalPrice, LocalDate date, String paymentMode) {
-        this.clientId = clientId;
-        this.appareilId = appareilId;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-        this.date = date;
-        this.paymentMode = paymentMode;
-    }
-
     public long getId() {
         return id;
     }
